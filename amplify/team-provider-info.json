@@ -1,0 +1,19 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "facing-the-world-dev-20190517223605-authRole",
+            "UnauthRoleArn": "arn:aws:iam::690524749915:role/facing-the-world-dev-20190517223605-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::690524749915:role/facing-the-world-dev-20190517223605-authRole",
+            "Region": "eu-west-2",
+            "DeploymentBucketName": "facing-the-world-dev-20190517223605-deployment",
+            "UnauthRoleName": "facing-the-world-dev-20190517223605-unauthRole",
+            "StackName": "facing-the-world-dev-20190517223605",
+            "StackId": "arn:aws:cloudformation:eu-west-2:690524749915:stack/facing-the-world-dev-20190517223605/c6d84260-78eb-11e9-b91d-0ab69c38e076"
+        },
+        "categories": {
+            "auth": {
+                "cognito257e97f5": {}
+            }
+        }
+    }
+}
