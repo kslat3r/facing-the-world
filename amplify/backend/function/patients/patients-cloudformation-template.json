@@ -71,13 +71,13 @@
                 "RoleName": {
                     "Fn::If": [
                         "ShouldNotCreateEnvResources",
-                        "facingtheworldLambdaRole14400a78", 
+                        "facingtheworldLambdaRolef4d589d6", 
                         {
 
                             "Fn::Join": [
                                 "",
                                 [
-                                    "facingtheworldLambdaRole14400a78",
+                                    "facingtheworldLambdaRolef4d589d6",
                                     "-",
                                     {
                                         "Ref": "env"

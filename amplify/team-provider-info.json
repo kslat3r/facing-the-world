@@ -1,18 +1,18 @@
 {
     "production": {
         "awscloudformation": {
-            "AuthRoleName": "facing-the-world-production-20190518124611-authRole",
-            "UnauthRoleArn": "arn:aws:iam::690524749915:role/facing-the-world-production-20190518124611-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::690524749915:role/facing-the-world-production-20190518124611-authRole",
+            "AuthRoleName": "facing-the-world-production-20190518144128-authRole",
+            "UnauthRoleArn": "arn:aws:iam::690524749915:role/facing-the-world-production-20190518144128-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::690524749915:role/facing-the-world-production-20190518144128-authRole",
             "Region": "ap-southeast-1",
-            "DeploymentBucketName": "facing-the-world-production-20190518124611-deployment",
-            "UnauthRoleName": "facing-the-world-production-20190518124611-unauthRole",
-            "StackName": "facing-the-world-production-20190518124611",
-            "StackId": "arn:aws:cloudformation:ap-southeast-1:690524749915:stack/facing-the-world-production-20190518124611/89518dd0-7962-11e9-b4c3-0299b044e622"
+            "DeploymentBucketName": "facing-the-world-production-20190518144128-deployment",
+            "UnauthRoleName": "facing-the-world-production-20190518144128-unauthRole",
+            "StackName": "facing-the-world-production-20190518144128",
+            "StackId": "arn:aws:cloudformation:ap-southeast-1:690524749915:stack/facing-the-world-production-20190518144128/a4798210-7972-11e9-bb84-0a9b79aa12c6"
         },
         "categories": {
             "auth": {
-                "cognito4268bf46": {}
+                "cognitoe90c1d00": {}
             }
         }
     }
