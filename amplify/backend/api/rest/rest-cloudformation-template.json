@@ -41,13 +41,13 @@
     },
     "Resources": {
         
-        "PolicyAPIGWapiauth": {
+        "PolicyAPIGWrestauth": {
             "DependsOn": [
-              "api"
+              "rest"
             ],
             "Type": "AWS::IAM::Policy",
             "Properties": {
-              "PolicyName": "PolicyAPIGWapiauth",
+              "PolicyName": "PolicyAPIGWrestauth",
               "Roles": [
                 {"Ref": "authRoleName"}
               ],
@@ -77,7 +77,7 @@
                             },
                             ":",
                             {
-                              "Ref": "api"
+                              "Ref": "rest"
                             },
                             "/",
                             {
@@ -108,7 +108,7 @@
                             },
                             ":",
                             {
-                              "Ref": "api"
+                              "Ref": "rest"
                             },
                             "/",
                             {
@@ -143,7 +143,7 @@
                             },
                             ":",
                             {
-                              "Ref": "api"
+                              "Ref": "rest"
                             },
                             "/",
                             {
@@ -174,7 +174,7 @@
                             },
                             ":",
                             {
-                              "Ref": "api"
+                              "Ref": "rest"
                             },
                             "/",
                             {
@@ -209,7 +209,7 @@
                             },
                             ":",
                             {
-                              "Ref": "api"
+                              "Ref": "rest"
                             },
                             "/",
                             {
@@ -240,7 +240,7 @@
                             },
                             ":",
                             {
-                              "Ref": "api"
+                              "Ref": "rest"
                             },
                             "/",
                             {
@@ -275,7 +275,7 @@
                             },
                             ":",
                             {
-                              "Ref": "api"
+                              "Ref": "rest"
                             },
                             "/",
                             {
@@ -306,7 +306,7 @@
                             },
                             ":",
                             {
-                              "Ref": "api"
+                              "Ref": "rest"
                             },
                             "/",
                             {
@@ -341,7 +341,7 @@
                             },
                             ":",
                             {
-                              "Ref": "api"
+                              "Ref": "rest"
                             },
                             "/",
                             {
@@ -372,7 +372,7 @@
                             },
                             ":",
                             {
-                              "Ref": "api"
+                              "Ref": "rest"
                             },
                             "/",
                             {
@@ -402,16 +402,16 @@
           },
         
         
-      "api": {
+      "rest": {
         "Type": "AWS::ApiGateway::RestApi",
         "Properties": {
           "Description": "",
-          "Name": "api",
+          "Name": "rest",
           "Body": {
             "swagger": "2.0",
             "info": {
               "version": "2018-05-24T17:52:00Z",
-              "title": "api"
+              "title": "rest"
             },
             "host": {
                 "Fn::Join": [
@@ -701,7 +701,7 @@
                   
         
         
-        "functionpatientsPermissionapi": {
+        "functionpatientsPermissionrest": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
                 "FunctionName": 
@@ -725,7 +725,7 @@
                             },
                             ":",
                             {
-                                "Ref": "api"
+                                "Ref": "rest"
                             },
                             "/*/*/*"
                         ]
@@ -736,7 +736,7 @@
         
         
         
-      "DeploymentAPIGWapi": {
+      "DeploymentAPIGWrest": {
         "Type": "AWS::ApiGateway::Deployment",
         "Properties": {
           "Description": "The Development stage deployment of your API.",
@@ -750,7 +750,7 @@
             ]
           },
           "RestApiId": {
-            "Ref": "api"
+            "Ref": "rest"
           }
         }
       }
@@ -758,11 +758,11 @@
     "Outputs": {
         "RootUrl": {
             "Description": "Root URL of the API gateway",
-            "Value": {"Fn::Join": ["", ["https://", {"Ref": "api"}, ".execute-api.", {"Ref": "AWS::Region"}, ".amazonaws.com/", {"Fn::If": ["ShouldNotCreateEnvResources","Prod", {"Ref": "env"} ]}]]}
+            "Value": {"Fn::Join": ["", ["https://", {"Ref": "rest"}, ".execute-api.", {"Ref": "AWS::Region"}, ".amazonaws.com/", {"Fn::If": ["ShouldNotCreateEnvResources","Prod", {"Ref": "env"} ]}]]}
         },
         "ApiName": {
           "Description": "API Friendly name",
-          "Value": "api"
+          "Value": "rest"
         }
     }
   }

@@ -1,17 +1,17 @@
 {
 	"auth": {
-		"cognito9d8cf71d": {
+		"cognito4268bf46": {
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation"
 		}
 	},
 	"storage": {
-		"db": {
-			"service": "DynamoDB",
+		"facingtheworldphotos": {
+			"service": "S3",
 			"providerPlugin": "awscloudformation"
 		},
-		"photos": {
-			"service": "S3",
+		"db": {
+			"service": "DynamoDB",
 			"providerPlugin": "awscloudformation"
 		}
 	},
@@ -33,7 +33,7 @@
 		}
 	},
 	"api": {
-		"api": {
+		"rest": {
 			"service": "API Gateway",
 			"providerPlugin": "awscloudformation",
 			"dependsOn": [

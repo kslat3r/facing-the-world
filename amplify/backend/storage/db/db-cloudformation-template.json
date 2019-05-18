@@ -40,7 +40,7 @@
                 "AttributeDefinitions": [
                   
                   {
-                      "AttributeName": "patientNumber",
+                      "AttributeName": "number",
                       "AttributeType": "N"
                   }  , 
                   
@@ -53,7 +53,7 @@
                 "KeySchema": [
                   
                   {
-                    "AttributeName": "patientNumber",
+                    "AttributeName": "number",
                     "KeyType": "HASH"
                   }  , 
                   
