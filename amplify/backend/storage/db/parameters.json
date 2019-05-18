@@ -2,6 +2,6 @@
     "tableName": "patients",
     "partitionKeyName": "number",
     "partitionKeyType": "N",
-    "sortKeyName": "name",
+    "sortKeyName": "lastName",
     "sortKeyType": "S"
 }

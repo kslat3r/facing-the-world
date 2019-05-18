@@ -22,7 +22,7 @@ if(process.env.ENV && process.env.ENV !== "NONE") {
 const userIdPresent = false; // TODO: update in case is required to use that definition
 const partitionKeyName = "number";
 const partitionKeyType = "N";
-const sortKeyName = "name";
+const sortKeyName = "lastName";
 const sortKeyType = "S";
 const hasSortKey = sortKeyName !== "";
 const path = "/patients";

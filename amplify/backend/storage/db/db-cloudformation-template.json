@@ -45,7 +45,12 @@
                   }  , 
                   
                   {
-                      "AttributeName": "name",
+                      "AttributeName": "firstName",
+                      "AttributeType": "S"
+                  }  , 
+                  
+                  {
+                      "AttributeName": "lastName",
                       "AttributeType": "S"
                   } 
                   
@@ -58,7 +63,7 @@
                   }  , 
                   
                   {
-                    "AttributeName": "name",
+                    "AttributeName": "lastName",
                     "KeyType": "RANGE"
                   } 
                   
@@ -94,11 +99,30 @@
                 ,"GlobalSecondaryIndexes": [
                   
                     {
-                        "IndexName": "name",
+                        "IndexName": "firstName",
                         "KeySchema": [
                             
                             {
-                                "AttributeName": "name",
+                                "AttributeName": "firstName",
+                                "KeyType": "HASH"
+                            } 
+                            
+                        ],
+                        "Projection": {
+                            "ProjectionType": "ALL"
+                        },
+                        "ProvisionedThroughput": {
+                            "ReadCapacityUnits": "5",
+                            "WriteCapacityUnits": "5"
+                        }
+                    }  , 
+                  
+                    {
+                        "IndexName": "lastName",
+                        "KeySchema": [
+                            
+                            {
+                                "AttributeName": "lastName",
                                 "KeyType": "HASH"
                             } 
                             
