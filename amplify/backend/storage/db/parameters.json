@@ -1,0 +1,7 @@
+{
+    "tableName": "patients",
+    "partitionKeyName": "patientNumber",
+    "partitionKeyType": "N",
+    "sortKeyName": "name",
+    "sortKeyType": "S"
+}
