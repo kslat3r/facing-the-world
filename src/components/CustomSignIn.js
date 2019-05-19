@@ -100,9 +100,9 @@ class CustomSignIn extends SignIn {
       <Grid
         className={classes.root}
         container
-        direction="column"
-        justify="space-evenly"
-        alignItems="stretch"
+        direction="row"
+        justify="center"
+        alignItems="center"
       >
         <Grid
           item
