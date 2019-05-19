@@ -6,7 +6,6 @@ import CustomSignIn from '../components/CustomSignIn';
 import Patients from './App';
 
 Amplify.configure(awsmobile);
-console.log(JSON.stringify(awsmobile));
 
 const AppWithAuth = () => {
   return (

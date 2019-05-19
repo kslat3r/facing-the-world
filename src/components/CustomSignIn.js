@@ -1,65 +1,202 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import { Auth } from 'aws-amplify';
 import { SignIn } from 'aws-amplify-react';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
+import ErrorIcon from '@material-ui/icons/Error';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-export default class CustomSignIn extends SignIn {
+const styles = theme => ({
+  root: {
+    marginTop: 30
+  },
+  paper: {
+    padding: theme.spacing.unit * 2,
+    height: '100%',
+    color: theme.palette.text.secondary,
+    marginBottom: theme.spacing.unit * 2,
+    textAlign: 'center',
+    maxWidth: 400
+  },
+  logo: {
+    width: 300
+  },
+  error: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    backgroundColor: theme.palette.error.dark
+  },
+  icon: {
+    fontSize: 20,
+    opacity: 0.9,
+    marginRight: theme.spacing.unit
+  },
+  message: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit * 2
+  },
+  input: {
+    marginRight: theme.spacing.unit * 2,
+    width: 'auto'
+  },
+  button: {
+    margin: theme.spacing.unit,
+    marginTop: theme.spacing.unit * 2,
+    width: '96%',
+    display: 'block'
+  },
+  progress: {
+    color: '#fff',
+    verticalAlign: -3
+  },
+});
+
+class CustomSignIn extends SignIn {
   constructor (props) {
     super(props);
 
     this._validAuthStates = ['signIn', 'signedOut', 'signedUp'];
   }
 
+  async signIn (event) {
+    event.preventDefault();
+
+    const {
+      username = '',
+      password
+    } = this.inputs;
+
+    this.setState({
+      error: null,
+      loading: true
+    });
+
+    try {
+      const user = await Auth.signIn(username, password);
+
+      this.checkContact(user);
+    } catch (err) {
+      this.setState({ error: err.message })
+    } finally {
+      this.setState({ loading: false })
+    }
+}
+
   showComponent() {
-    const { loading } = this.state;
+    const { classes } = this.props;
+
+    const {
+      error,
+      loading
+    } = this.state;
 
     return (
-      <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        { loading ? (
-          <h1>Loading</h1>
-        ) : null}
-        <div className="mb-4">
-          <label
-            className="block text-grey-darker text-sm font-bold mb-2"
-            htmlFor="username"
+      <Grid
+        className={classes.root}
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+      >
+        <Grid
+          item
+        >
+          <Paper
+            className={classes.paper}
           >
-            Username
-          </label>
-          <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
-            id="username"
-            key="username"
-            name="username"
-            onChange={this.handleInputChange}
-            type="text"
-            placeholder="Username"
-          />
-        </div>
-        <div className="mb-6">
-          <label
-            className="block text-grey-darker text-sm font-bold mb-2"
-            htmlFor="password"
+            <img
+              className={classes.logo}
+              src="/img/logo.jpg"
+              alt="Facing the world"
+            />
+          </Paper>
+          <Paper
+            className={classes.paper}
           >
-            Password
-          </label>
-          <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker mb-3 leading-tight focus:outline-none focus:shadow-outline"
-            id="password"
-            key="password"
-            name="password"
-            onChange={this.handleInputChange}
-            type="password"
-            placeholder="******************"
-          />
-        </div>
-        <div className="flex items-center justify-between">
-          <button
-            className="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="button"
-            onClick={(e) => super.signIn(e)}
-          >
-            Login
-          </button>
-        </div>
-      </form>
+            {error ? (
+              <SnackbarContent
+                className={classes.error}
+                message={
+                  <span
+                    id="client-snackbar"
+                    className={classes.message}
+                  >
+                    <ErrorIcon
+                      className={classes.icon} />
+                    {error}
+                  </span>
+                }
+              />
+            ) : null}
+
+            <TextField
+              id="username"
+              key="username"
+              name="username"
+              label="Username"
+              className={classes.textField}
+              onChange={this.handleInputChange}
+              margin="normal"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              InputProps={{
+                className: classes.input
+              }}
+              fullWidth
+            />
+
+            <TextField
+              type="password"
+              id="password"
+              key="password"
+              name="password"
+              label="Password"
+              className={classes.textField}
+              onChange={this.handleInputChange}
+              margin="normal"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              InputProps={{
+                className: classes.input
+              }}
+              fullWidth
+            />
+
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.button}
+              fullWidth
+              disabled={loading}
+              onClick={(e) => this.signIn(e)}
+            >
+              {loading ? (
+                <CircularProgress
+                  className={classes.progress}
+                  size={20}
+                />
+              ) : 'Log in'}
+            </Button>
+          </Paper>
+        </Grid>
+      </Grid>
     );
   }
 }
+
+CustomSignIn.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(CustomSignIn);
