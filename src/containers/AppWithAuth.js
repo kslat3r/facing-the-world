@@ -1,16 +1,17 @@
 import React from 'react';
 import Amplify from "aws-amplify";
 import awsmobile from '../aws-exports';
-import { Authenticator, SignIn } from 'aws-amplify-react';
+import { Authenticator, SignIn, Greetings } from 'aws-amplify-react';
 import CustomSignIn from '../components/CustomSignIn';
 import Patients from './App';
 
 Amplify.configure(awsmobile);
+console.log(awsmobile);
 
 const AppWithAuth = () => {
   return (
     <Authenticator
-      hide={[SignIn]}
+      hide={[SignIn, Greetings]}
     >
       <CustomSignIn />
       <Patients />
