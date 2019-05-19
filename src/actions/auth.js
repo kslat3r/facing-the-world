@@ -28,7 +28,7 @@ export const initialise = ()  => async (dispatch) => {
     return;
   }
 
-  return success(user);
+  return dispatch(success(user));
 }
 
 export const login = (username, password) => async (dispatch) => {
@@ -40,5 +40,5 @@ export const login = (username, password) => async (dispatch) => {
     return dispatch(error(e));
   }
 
-  return success(user);
+  return dispatch(success(user));
 }

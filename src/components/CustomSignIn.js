@@ -13,7 +13,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 const styles = theme => ({
   root: {
-    marginTop: 30
+    padding: theme.spacing.unit * 2,
   },
   paper: {
     padding: theme.spacing.unit * 2,
@@ -27,9 +27,9 @@ const styles = theme => ({
     width: 300
   },
   error: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    backgroundColor: theme.palette.error.dark
+    marginBottom: theme.spacing.unit * 2,
+    backgroundColor: theme.palette.error.dark,
+    borderRadius: 4
   },
   icon: {
     fontSize: 20,
@@ -119,25 +119,26 @@ class CustomSignIn extends SignIn {
               alt="Facing the world"
             />
           </Paper>
+
+          {error ? (
+            <SnackbarContent
+              className={classes.error}
+              message={
+                <span
+                  id="client-snackbar"
+                  className={classes.message}
+                >
+                  <ErrorIcon
+                    className={classes.icon} />
+                  {error}
+                </span>
+              }
+            />
+          ) : null}
+
           <Paper
             className={classes.paper}
           >
-            {error ? (
-              <SnackbarContent
-                className={classes.error}
-                message={
-                  <span
-                    id="client-snackbar"
-                    className={classes.message}
-                  >
-                    <ErrorIcon
-                      className={classes.icon} />
-                    {error}
-                  </span>
-                }
-              />
-            ) : null}
-
             <TextField
               id="username"
               key="username"
