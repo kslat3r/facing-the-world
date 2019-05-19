@@ -61,7 +61,7 @@ const Patients = (props) => {
 
       <List className={classes.list}>
         {[...Array(50)].map((j, i) => (
-          <ListItem alignItems="flex-start" divider button component={Link} to={`/patients/${i}`}>
+          <ListItem alignItems="flex-start" divider button component={Link} to={`/patients/${i}`} key={i}>
             <ListItemAvatar>
               <Avatar alt="Remy Sharp" src="https://material-ui.com/static/images/avatar/1.jpg" />
             </ListItemAvatar>
