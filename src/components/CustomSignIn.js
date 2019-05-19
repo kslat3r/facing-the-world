@@ -21,10 +21,10 @@ const styles = theme => ({
     color: theme.palette.text.secondary,
     marginBottom: theme.spacing.unit * 2,
     textAlign: 'center',
-    maxWidth: 400
+    maxWidth: 300
   },
   logo: {
-    width: 300
+    width: '100%'
   },
   error: {
     marginBottom: theme.spacing.unit * 2,
