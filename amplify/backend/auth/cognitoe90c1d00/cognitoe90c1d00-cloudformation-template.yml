@@ -189,9 +189,9 @@ Resources:
         PasswordPolicy:
           MinimumLength: !Ref passwordPolicyMinLength
           RequireLowercase: true
-          RequireNumbers: true
-          RequireSymbols: true
-          RequireUppercase: true
+          RequireNumbers: false
+          RequireSymbols: false
+          RequireUppercase: false
           
       MfaConfiguration: !Ref mfaConfiguration
       SmsVerificationMessage: !Ref smsVerificationMessage
