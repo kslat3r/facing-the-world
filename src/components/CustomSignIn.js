@@ -17,19 +17,19 @@ const styles = theme => ({
   },
   paper: {
     padding: theme.spacing.unit * 2,
-    height: '100%',
     color: theme.palette.text.secondary,
     marginBottom: theme.spacing.unit * 2,
-    textAlign: 'center',
-    maxWidth: 300
+    textAlign: 'center'
   },
   logo: {
+    maxWidth: 600,
     width: '100%'
   },
   error: {
     marginBottom: theme.spacing.unit * 2,
     backgroundColor: theme.palette.error.dark,
-    borderRadius: 4
+    borderRadius: 4,
+    maxWidth: 99999
   },
   icon: {
     fontSize: 20,
@@ -38,21 +38,18 @@ const styles = theme => ({
   },
   message: {
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit * 2
   },
   input: {
-    marginRight: theme.spacing.unit * 2,
     width: 'auto'
   },
   button: {
     margin: theme.spacing.unit,
-    marginTop: theme.spacing.unit * 2,
-    width: '96%',
-    display: 'block'
+    marginTop: theme.spacing.unit * 2
   },
   progress: {
     color: '#fff',
@@ -103,9 +100,9 @@ class CustomSignIn extends SignIn {
       <Grid
         className={classes.root}
         container
-        direction="row"
-        justify="center"
-        alignItems="center"
+        direction="column"
+        justify="space-evenly"
+        alignItems="stretch"
       >
         <Grid
           item
