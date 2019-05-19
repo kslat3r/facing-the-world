@@ -8,7 +8,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
-import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom'
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
@@ -61,21 +60,14 @@ const Patients = (props) => {
       </Paper>
 
       <List className={classes.list}>
-        {[...Array(50)].map(() => (
-          <ListItem alignItems="flex-start">
+        {[...Array(50)].map((j, i) => (
+          <ListItem alignItems="flex-start" divider button component={Link} to={`/patients/${i}`}>
             <ListItemAvatar>
               <Avatar alt="Remy Sharp" src="https://material-ui.com/static/images/avatar/1.jpg" />
             </ListItemAvatar>
             <ListItemText
-              primary="Brunch this weekend?"
-              secondary={
-                <React.Fragment>
-                  <Typography component="span" className={classes.inline} color="textPrimary">
-                    Ali Connors
-                  </Typography>
-                  {" — I'll be in your neighborhood doing errands this…"}
-                </React.Fragment>
-              }
+              primary="Ali Connors"
+              secondary="04/10/1987"
             />
           </ListItem>
         ))}
