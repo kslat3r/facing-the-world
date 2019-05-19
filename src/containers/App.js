@@ -1,14 +1,15 @@
 import React from 'react';
-import Amplify from 'aws-amplify';
-import awsmobile from '../aws-exports';
-import { withAuthenticator } from 'aws-amplify-react'; // or 'aws-amplify-react-native';
 
-Amplify.configure(awsmobile);
+const App = (props) => {
+  const { authState } = props;
 
-function App() {
+  if (authState !== 'signedIn') {
+    return null;
+  }
+
   return (
     <h1>App</h1>
   );
-}
+};
 
-export default withAuthenticator(App, true);
+export default App;
