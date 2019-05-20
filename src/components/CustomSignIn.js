@@ -31,6 +31,14 @@ const styles = theme => ({
     borderRadius: 4,
     maxWidth: 99999
   },
+  paperForm: {
+    padding: theme.spacing.unit * 2,
+    color: theme.palette.text.secondary,
+    marginBottom: theme.spacing.unit * 2,
+    textAlign: 'center',
+    display: 'flex',
+    flexWrap: 'wrap'
+  },
   icon: {
     fontSize: 20,
     opacity: 0.9,
@@ -42,7 +50,7 @@ const styles = theme => ({
   },
   textField: {
     marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit * 2
+    marginRight: theme.spacing.unit
   },
   input: {
     width: 'auto'
@@ -134,7 +142,7 @@ class CustomSignIn extends SignIn {
           ) : null}
 
           <Paper
-            className={classes.paper}
+            className={classes.paperForm}
           >
             <TextField
               id="username"

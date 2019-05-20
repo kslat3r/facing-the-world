@@ -33,7 +33,7 @@ const PatientsSearch = (props) => {
   return (
     <Paper
       className={classes.paper}
-      elevation={1}
+      elevation={0}
     >
       <TextField
         id="search"

@@ -18,8 +18,8 @@ const App = (props) => {
     <Provider
       store={store}
     >
-      <AppBar />
       <Router>
+        <AppBar />
         <Switch>
           <Route
             path="/patients/new"

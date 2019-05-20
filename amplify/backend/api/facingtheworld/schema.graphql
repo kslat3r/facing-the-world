@@ -6,7 +6,7 @@ type Patient @model {
   dayOfBirth: Int!
   monthOfBirth: Int!
   yearOfBirth: Int!
-  history: [String]!
-  managementPlan: [String]!
+  history: String!
+  managementPlan: String!
   photoUri: String
 }

@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
+import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 
 const styles = theme => ({
@@ -34,11 +35,15 @@ const SearchAppBar = props => {
           <div
             className={classes.grow}
           >
-            <img
-              src="/img/face-small.png"
-              className={classes.logo}
-              alt="Facing the world"
-            />
+            <Link
+              to="/patients"
+            >
+              <img
+                src="/img/face-small.png"
+                className={classes.logo}
+                alt="Facing the world"
+              />
+            </Link>
           </div>
         </Toolbar>
       </AppBar>
