@@ -1,5 +1,7 @@
 import React from 'react';
 import AppBar from '../components/AppBar';
+import { Provider } from 'react-redux';
+import store from '../store';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import Patient from './Patient';
 import Patients from './Patients';
@@ -13,7 +15,9 @@ const App = (props) => {
   }
 
   return (
-    <div>
+    <Provider
+      store={store}
+    >
       <AppBar />
       <Router>
         <Switch>
@@ -39,7 +43,7 @@ const App = (props) => {
           />
         </Switch>
       </Router>
-    </div>
+    </Provider>
   );
 };
 

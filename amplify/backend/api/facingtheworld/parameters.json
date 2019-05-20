@@ -1,0 +1,10 @@
+{
+    "AppSyncApiName": "facingtheworld",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authcognitoe90c1d00",
+            "Outputs.UserPoolId"
+        ]
+    }
+}

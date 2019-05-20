@@ -1,92 +1,98 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as PatientsActions from '../actions/patients';
 import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import TextField from '@material-ui/core/TextField';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
-import { Link } from 'react-router-dom'
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
+import Loading from '../components/Loading';
+import Error from '../components/Error';
+import NoResults from '../components/NoResults';
+import PatientsSearch from '../components/PatientsSearch';
+import PatientsList from '../components/PatientsList';
+import PatientsCreateButton from '../components/PatientsCreateButton';
 
 const styles = theme => ({
-  paper: {
-    padding: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit * 2,
-    paddingRight: theme.spacing.unit * 2,
-    position: 'fixed',
-    width: 'inherit',
-    zIndex: 100,
-    top: 64,
-    left: 0,
-    right: 0
-  },
-  search: {
-    marginTop: theme.spacing.unit
-  },
-  list: {
-    marginTop: 155
-  },
-  fab: {
-    position: 'fixed',
-    bottom: theme.spacing.unit * 2,
-    right: theme.spacing.unit * 2
+  root: {
+    marginTop: 164,
+    [theme.breakpoints.up('sm')]: {
+      marginTop: 172
+    },
   }
 });
 
-const Patients = (props) => {
-  const { classes } = props;
+class Patients extends React.Component {
+  constructor (props) {
+    super(props);
 
-  return (
-    <div>
-      <Paper
-        className={classes.paper}
-        elevation={1}
-      >
-        <TextField
-          id="search"
-          className={classes.search}
-          placeholder="Search..."
-          fullWidth
-          margin="normal"
-          variant="outlined"
-          InputLabelProps={{
-            shrink: true,
-          }}
+    this.search = this.search.bind(this);
+  }
+
+  async componentWillMount () {
+    const { patientsActions } = this.props;
+
+    await patientsActions.list();
+  }
+
+  async search (e) {
+    console.log(e.target.value)
+  }
+
+  render () {
+    const {
+      classes,
+      patients
+    } = this.props;
+
+    const {
+      items,
+      error,
+      loading
+    } = patients;
+
+    return (
+      <div>
+        <PatientsSearch
+          onSearch={this.search}
         />
-      </Paper>
 
-      <List className={classes.list}>
-        {[...Array(50)].map((j, i) => (
-          <ListItem alignItems="flex-start" divider button component={Link} to={`/patients/${i}`} key={i}>
-            <ListItemAvatar>
-              <Avatar alt="Remy Sharp" src="https://material-ui.com/static/images/avatar/1.jpg" />
-            </ListItemAvatar>
-            <ListItemText
-              primary="Ali Connors"
-              secondary="04/10/1987"
+        <div
+          className={classes.root}
+        >
+          {loading ? (
+            <Loading />
+          ) : null}
+
+          {error ? (
+            <Error />
+          ) : null}
+
+          {!error && !loading && !items.length ? (
+            <NoResults />
+          ) : null}
+
+          {!error && !loading && items.length ? (
+            <PatientsList
+              items={items}
             />
-          </ListItem>
-        ))}
-      </List>
+          ) : null}
+        </div>
 
-      <Fab
-        color="primary"
-        className={classes.fab}
-        component={Link}
-        to="/patients/new"
-      >
-        <AddIcon />
-      </Fab>
-    </div>
-  );
+        <PatientsCreateButton />
+      </div>
+    );
+  }
 };
 
 Patients.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Patients);
+export default connect((state) => {
+  return {
+    patients: state.patients
+  };
+}, (dispatch) => {
+  return {
+    patientsActions: bindActionCreators(PatientsActions, dispatch)
+  };
+})(withStyles(styles)(Patients));

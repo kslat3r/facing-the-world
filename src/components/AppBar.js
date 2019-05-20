@@ -47,7 +47,7 @@ const SearchAppBar = props => {
 }
 
 SearchAppBar.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(SearchAppBar)
+export default withStyles(styles)(SearchAppBar);

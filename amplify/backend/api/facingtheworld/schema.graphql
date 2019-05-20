@@ -1,0 +1,12 @@
+type Patient @model {
+  id: ID!
+  number: String!
+  firstName: String!
+  lastName: String!
+  dayOfBirth: Int!
+  monthOfBirth: Int!
+  yearOfBirth: Int!
+  history: [String]!
+  managementPlan: [String]!
+  photoUri: String
+}

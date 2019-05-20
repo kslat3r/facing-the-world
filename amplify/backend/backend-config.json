@@ -9,43 +9,16 @@
 		"photos": {
 			"service": "S3",
 			"providerPlugin": "awscloudformation"
-		},
-		"db": {
-			"service": "DynamoDB",
-			"providerPlugin": "awscloudformation"
 		}
 	},
-	"function": {
-		"patients": {
-			"service": "Lambda",
-			"providerPlugin": "awscloudformation",
-			"build": true,
-			"dependsOn": [
-				{
-					"category": "storage",
-					"resourceName": "db",
-					"attributes": [
-						"Name",
-						"Arn"
-					]
-				}
-			]
-		}
-	},
+	"function": {},
 	"api": {
-		"rest": {
-			"service": "API Gateway",
+		"facingtheworld": {
+			"service": "AppSync",
 			"providerPlugin": "awscloudformation",
-			"dependsOn": [
-				{
-					"category": "function",
-					"resourceName": "patients",
-					"attributes": [
-						"Name",
-						"Arn"
-					]
-				}
-			]
+			"output": {
+				"securityType": "AMAZON_COGNITO_USER_POOLS"
+			}
 		}
 	}
 }
