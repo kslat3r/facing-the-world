@@ -7,9 +7,7 @@ export const createPatient = `mutation CreatePatient($input: CreatePatientInput!
     number
     firstName
     lastName
-    dayOfBirth
-    monthOfBirth
-    yearOfBirth
+    dateOfBirth
     history
     managementPlan
     photoUri
@@ -22,9 +20,7 @@ export const updatePatient = `mutation UpdatePatient($input: UpdatePatientInput!
     number
     firstName
     lastName
-    dayOfBirth
-    monthOfBirth
-    yearOfBirth
+    dateOfBirth
     history
     managementPlan
     photoUri
@@ -37,9 +33,7 @@ export const deletePatient = `mutation DeletePatient($input: DeletePatientInput!
     number
     firstName
     lastName
-    dayOfBirth
-    monthOfBirth
-    yearOfBirth
+    dateOfBirth
     history
     managementPlan
     photoUri

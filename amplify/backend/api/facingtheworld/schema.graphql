@@ -3,9 +3,7 @@ type Patient @model {
   number: String!
   firstName: String!
   lastName: String!
-  dayOfBirth: Int!
-  monthOfBirth: Int!
-  yearOfBirth: Int!
+  dateOfBirth: String!
   history: String!
   managementPlan: String!
   photoUri: String

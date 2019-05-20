@@ -61,7 +61,8 @@ const styles = theme => ({
   },
   progress: {
     color: '#fff',
-    verticalAlign: -3
+    marginTop: 1,
+    marginBottom: 3
   },
 });
 

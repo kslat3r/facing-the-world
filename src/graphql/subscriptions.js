@@ -7,9 +7,7 @@ export const onCreatePatient = `subscription OnCreatePatient {
     number
     firstName
     lastName
-    dayOfBirth
-    monthOfBirth
-    yearOfBirth
+    dateOfBirth
     history
     managementPlan
     photoUri
@@ -22,9 +20,7 @@ export const onUpdatePatient = `subscription OnUpdatePatient {
     number
     firstName
     lastName
-    dayOfBirth
-    monthOfBirth
-    yearOfBirth
+    dateOfBirth
     history
     managementPlan
     photoUri
@@ -37,9 +33,7 @@ export const onDeletePatient = `subscription OnDeletePatient {
     number
     firstName
     lastName
-    dayOfBirth
-    monthOfBirth
-    yearOfBirth
+    dateOfBirth
     history
     managementPlan
     photoUri

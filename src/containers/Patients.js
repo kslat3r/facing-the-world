@@ -13,9 +13,9 @@ import PatientsCreateButton from '../components/PatientsCreateButton';
 
 const styles = theme => ({
   root: {
-    marginTop: 164,
+    marginTop: 154,
     [theme.breakpoints.up('sm')]: {
-      marginTop: 172
+      marginTop: 162
     },
   }
 });

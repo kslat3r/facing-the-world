@@ -20,8 +20,9 @@ const PatientsList = (props) => {
     <List
       className={classes.list}
     >
-      {items.map((item) => (
+      {items.map((item, i) => (
         <PatientListItem
+          key={i}
           item={item}
         />
       ))}

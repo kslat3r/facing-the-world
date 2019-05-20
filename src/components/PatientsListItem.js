@@ -21,7 +21,6 @@ const PatientListItem = (props) => {
       button
       component={Link}
       to={`/patients/${item.id}`}
-      key={item.id}
     >
       <ListItemAvatar>
         <Avatar
@@ -31,7 +30,7 @@ const PatientListItem = (props) => {
       </ListItemAvatar>
       <ListItemText
         primary={`${item.firstName} ${item.lastName}`}
-        secondary={`${item.dayOfBirth}/${item.monthOfBirth}/${item.yearOfBirth}`}
+        secondary={`${item.dateOfBirth.split('-').reverse().join('/')}`}
       />
     </ListItem>
   );

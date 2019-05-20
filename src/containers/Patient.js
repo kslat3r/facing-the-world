@@ -24,6 +24,7 @@ class Patient extends React.Component {
 
     this.create = this.create.bind(this);
     this.update = this.update.bind(this);
+    this.remove = this.remove.bind(this);
   }
 
   async componentWillMount () {
@@ -46,12 +47,41 @@ class Patient extends React.Component {
     }
   }
 
-  async create () {
-
+  componentWillUnmount () {
+    this.props.patientActions.init();
   }
 
-  async update () {
+  async create (data) {
+    const {
+      patientActions,
+      history
+    } = this.props;
 
+    await patientActions.create(data);
+
+    history.push('/patients');
+  }
+
+  async update (data) {
+    const {
+      patientActions,
+      history
+    } = this.props;
+
+    await patientActions.update(data);
+
+    history.push('/patients');
+  }
+
+  async remove (data) {
+    const {
+      patientActions,
+      history
+    } = this.props;
+
+    await patientActions.remove(data.id);
+
+    history.push('/patients');
   }
 
   render () {
@@ -64,7 +94,8 @@ class Patient extends React.Component {
       item,
       error,
       loading,
-      submitting
+      submitting,
+      removing
     } = patient;
 
     return (
@@ -87,8 +118,10 @@ class Patient extends React.Component {
           <PatientForm
             item={item}
             submitting={submitting}
+            removing={removing}
             error={error}
             onSubmit={!item.id ? this.create : this.update}
+            onRemove={this.remove}
           />
         ) : null}
       </div>

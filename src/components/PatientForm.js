@@ -57,18 +57,73 @@ const styles = theme => ({
   },
   progress: {
     color: '#fff',
-    verticalAlign: -3
+    marginTop: 1,
+    marginBottom: 3
   },
+  removeButton: {
+    backgroundColor: theme.palette.error.dark,
+    margin: theme.spacing.unit,
+    marginTop: theme.spacing.unit,
+    marginLeft: 'auto',
+    '&:hover': {
+      backgroundColor: theme.palette.error.light
+    },
+    minWidth: 150
+  }
 });
 
 class PatientForm extends React.Component {
+  constructor (props) {
+    super(props);
+
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+    this.onRemove = this.onRemove.bind(this);
+
+    this.state = {
+      item: {},
+    };
+  }
+
+  onChange (field, value) {
+    this.setState({
+      item: Object.assign({}, this.state.item, {
+        [field]: value
+      })
+    });
+  }
+
+  componentWillMount () {
+    this.setState({ item: this.props.item })
+  }
+
+  onSubmit () {
+    const {
+      onSubmit
+    } = this.props;
+
+    onSubmit(this.state.item);
+  }
+
+  onRemove () {
+    const {
+      onRemove
+    } = this.props;
+
+    onRemove(this.state.item);
+  }
+
   render() {
     const {
       classes,
       submitting,
-      error,
-      onSubmit
+      removing,
+      error
     } = this.props;
+
+    const {
+      item
+    } = this.state;
 
     return (
       <div>
@@ -114,6 +169,8 @@ class PatientForm extends React.Component {
             className: classes.input
           }}
           fullWidth
+          value={item.number}
+          onChange={(e) => this.onChange('number', e.target.value)}
         />
 
         <TextField
@@ -130,6 +187,8 @@ class PatientForm extends React.Component {
             className: classes.input
           }}
           fullWidth
+          value={item.firstName}
+          onChange={(e) => this.onChange('firstName', e.target.value)}
         />
 
         <TextField
@@ -146,6 +205,8 @@ class PatientForm extends React.Component {
             className: classes.input
           }}
           fullWidth
+          value={item.lastName}
+          onChange={(e) => this.onChange('lastName', e.target.value)}
         />
 
         <TextField
@@ -163,6 +224,8 @@ class PatientForm extends React.Component {
             className: classes.input
           }}
           fullWidth
+          value={item.dateOfBirth}
+          onChange={(e) => this.onChange('dateOfBirth', e.target.value)}
         />
 
         <TextField
@@ -181,6 +244,8 @@ class PatientForm extends React.Component {
           InputProps={{
             className: classes.input
           }}
+          value={item.history}
+          onChange={(e) => this.onChange('history', e.target.value)}
         />
 
         <TextField
@@ -199,6 +264,8 @@ class PatientForm extends React.Component {
           InputProps={{
             className: classes.input
           }}
+          value={item.managementPlan}
+          onChange={(e) => this.onChange('managementPlan', e.target.value)}
         />
 
         <Button
@@ -207,7 +274,7 @@ class PatientForm extends React.Component {
           className={classes.button}
           fullWidth
           disabled={submitting}
-          onClick={onSubmit}
+          onClick={this.onSubmit}
         >
           {submitting ? (
             <CircularProgress
@@ -216,6 +283,23 @@ class PatientForm extends React.Component {
             />
           ) : 'Submit'}
         </Button>
+
+        {item.id ? (
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.removeButton}
+            disabled={removing}
+            onClick={this.onRemove}
+          >
+            {removing ? (
+              <CircularProgress
+                className={classes.progress}
+                size={20}
+              />
+            ) : 'Remove'}
+          </Button>
+        ) : null}
       </Paper>
     </div>
     );
@@ -224,7 +308,12 @@ class PatientForm extends React.Component {
 
 PatientForm.propTypes = {
   classes: PropTypes.object.isRequired,
-  submitting: PropTypes.bool.isRequired
+  item: PropTypes.object.isRequired,
+  submitting: PropTypes.bool.isRequired,
+  removing: PropTypes.bool.isRequired,
+  error: PropTypes.object,
+  onSubmit: PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(PatientForm);

@@ -7,9 +7,7 @@ export const getPatient = `query GetPatient($id: ID!) {
     number
     firstName
     lastName
-    dayOfBirth
-    monthOfBirth
-    yearOfBirth
+    dateOfBirth
     history
     managementPlan
     photoUri
@@ -27,9 +25,7 @@ export const listPatients = `query ListPatients(
       number
       firstName
       lastName
-      dayOfBirth
-      monthOfBirth
-      yearOfBirth
+      dateOfBirth
       history
       managementPlan
       photoUri

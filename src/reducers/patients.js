@@ -18,7 +18,7 @@ export default (state = initialState, action) => {
 
     case PatientsActions.PATIENTS_SUCCESS:
       return {
-        items: state.items.concat(action.response.data.listPatients.items),
+        items: action.response.data.listPatients.items,
         nextToken: action.response.data.listPatients.nextToken,
         loading: false,
         error: null
