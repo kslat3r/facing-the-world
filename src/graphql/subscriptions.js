@@ -5,8 +5,8 @@ export const onCreatePatient = `subscription OnCreatePatient {
   onCreatePatient {
     id
     number
-    firstName
-    lastName
+    name
+    nameLowerCase
     dateOfBirth
     history
     managementPlan
@@ -18,8 +18,8 @@ export const onUpdatePatient = `subscription OnUpdatePatient {
   onUpdatePatient {
     id
     number
-    firstName
-    lastName
+    name
+    nameLowerCase
     dateOfBirth
     history
     managementPlan
@@ -31,8 +31,8 @@ export const onDeletePatient = `subscription OnDeletePatient {
   onDeletePatient {
     id
     number
-    firstName
-    lastName
+    name
+    nameLowerCase
     dateOfBirth
     history
     managementPlan

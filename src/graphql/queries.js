@@ -5,8 +5,8 @@ export const getPatient = `query GetPatient($id: ID!) {
   getPatient(id: $id) {
     id
     number
-    firstName
-    lastName
+    name
+    nameLowerCase
     dateOfBirth
     history
     managementPlan
@@ -23,8 +23,8 @@ export const listPatients = `query ListPatients(
     items {
       id
       number
-      firstName
-      lastName
+      name
+      nameLowerCase
       dateOfBirth
       history
       managementPlan

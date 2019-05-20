@@ -24,12 +24,12 @@ const PatientListItem = (props) => {
     >
       <ListItemAvatar>
         <Avatar
-          alt={`${item.firstName} ${item.lastName}`}
+          alt={`${item.name}`}
           src={item.photoUri ? item.photoUri : '/img/unknown.png'}
         />
       </ListItemAvatar>
       <ListItemText
-        primary={`${item.firstName} ${item.lastName}`}
+        primary={`${item.name}`}
         secondary={`${item.dateOfBirth.split('-').reverse().join('/')}`}
       />
     </ListItem>

@@ -38,7 +38,7 @@ const PatientsSearch = (props) => {
       <TextField
         id="search"
         className={classes.search}
-        placeholder="Search..."
+        placeholder="Search by patient name or number..."
         fullWidth
         margin="normal"
         variant="outlined"

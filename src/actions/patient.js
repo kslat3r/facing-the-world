@@ -64,6 +64,8 @@ export const get = (id)  => async (dispatch) => {
 export const create = (data)  => async (dispatch) => {
   dispatch(submitting());
 
+  data.nameLowerCase = data.name.toLowerCase();
+
   let response;
 
   try {
@@ -77,6 +79,8 @@ export const create = (data)  => async (dispatch) => {
 
 export const update = (data)  => async (dispatch) => {
   dispatch(submitting());
+
+  data.nameLowerCase = data.name.toLowerCase();
 
   let response;
 

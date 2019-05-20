@@ -34,7 +34,9 @@ class Patients extends React.Component {
   }
 
   async search (e) {
-    console.log(e.target.value)
+    const { patientsActions } = this.props;
+
+    await patientsActions.list(e.target.value);
   }
 
   render () {

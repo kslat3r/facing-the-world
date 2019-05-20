@@ -25,16 +25,33 @@ const success = response => {
   };
 }
 
-export const list = ()  => async (dispatch) => {
+export const list = (contains = null)  => async (dispatch) => {
   dispatch(loading());
+
+  const args = {};
+
+  if (contains) {
+    args.filter = {
+      or: [{
+        nameLowerCase: {
+          contains: contains.toLowerCase()
+        },
+      },
+      {
+        number: {
+          contains
+        }
+      }]
+    };
+  }
 
   let response;
 
   try {
-    response = await API.graphql(graphqlOperation(queries.listPatients));
+    response = await API.graphql(graphqlOperation(queries.listPatients, args));
   } catch (e) {
     return dispatch(error(e));
   }
 
   return dispatch(success(response));
-}
+};
