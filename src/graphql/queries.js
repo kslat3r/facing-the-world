@@ -23,13 +23,9 @@ export const listPatients = `query ListPatients(
   listPatients(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
-      number
       firstName
       lastName
-      fullNameLowerCase
       dateOfBirth
-      history
-      managementPlan
       photoUri
     }
     nextToken

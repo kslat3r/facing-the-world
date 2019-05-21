@@ -20,28 +20,30 @@ const App = (props) => {
     >
       <Router>
         <AppBar />
-        <Switch>
-          <Route
-            path="/patients/new"
-            exact
-            component={Patient}
-          />
-          <Route
-            path="/patients/:id"
-            component={Patient}
-          />
-          <Route
-            path="/patients"
-            component={Patients}
-          />
-          <Redirect
-            from="/"
-            to="/patients"
-          />
-          <Route
-            component={PageNotFound}
-          />
-        </Switch>
+        <main>
+          <Switch>
+            <Route
+              path="/patients/new"
+              exact
+              component={Patient}
+            />
+            <Route
+              path="/patients/:id"
+              component={Patient}
+            />
+            <Route
+              path="/patients"
+              component={Patients}
+            />
+            <Redirect
+              from="/"
+              to="/patients"
+            />
+            <Route
+              component={PageNotFound}
+            />
+          </Switch>
+        </main>
       </Router>
     </Provider>
   );

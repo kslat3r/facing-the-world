@@ -24,6 +24,7 @@ const PatientsCreateButton = (props) => {
       className={classes.fab}
       component={Link}
       to="/patients/new"
+      aria-label="Add new patient"
     >
       <AddIcon />
     </Fab>

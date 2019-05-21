@@ -19,6 +19,7 @@ const PatientsList = (props) => {
   return (
     <List
       className={classes.list}
+      component="div"
     >
       {items.map((item, i) => (
         <PatientListItem
