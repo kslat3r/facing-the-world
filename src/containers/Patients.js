@@ -47,6 +47,8 @@ class Patients extends React.Component {
 
   async onSearchSubmit (e) {
     if (e.key === 'Enter') {
+      e.blur();
+
       const {
         patientsActions,
         patients
