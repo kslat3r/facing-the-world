@@ -131,7 +131,8 @@ class Patient extends React.Component {
 
 Patient.propTypes = {
   classes: PropTypes.object.isRequired,
-  patient: PropTypes.object.isRequired
+  patient: PropTypes.object.isRequired,
+  patientActions: PropTypes.object.isRequired
 };
 
 export default connect((state) => {

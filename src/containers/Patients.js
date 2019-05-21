@@ -24,32 +24,57 @@ class Patients extends React.Component {
   constructor (props) {
     super(props);
 
-    this.search = this.search.bind(this);
-    this.reset = this.reset.bind(this);
+    this.onSearchSubmit = this.onSearchSubmit.bind(this);
+    this.onSearchChange = this.onSearchChange.bind(this);
+    this.onSearchReset = this.onSearchReset.bind(this);
   }
 
   async componentWillMount () {
     const {
-      patientsActions
+      patients,
+      patientsActions,
     } = this.props;
 
-    await patientsActions.list();
-  }
+    const {
+      initialised
+    } = patients;
 
-  async search (e) {
-    if (e.key === 'Enter') {
-      const { patientsActions } = this.props;
-
-      await patientsActions.list(e.target.value);
+    if (!initialised) {
+      await patientsActions.initialise();
+      await patientsActions.list();
     }
   }
 
-  async reset () {
+  async onSearchSubmit (e) {
+    if (e.key === 'Enter') {
+      const {
+        patientsActions,
+        patients
+      } = this.props;
+
+      const {
+        searchTerm
+      } = patients;
+
+      await patientsActions.list(searchTerm);
+    }
+  }
+
+  async onSearchChange (e) {
+    const {
+      patientsActions
+    } = this.props;
+
+    patientsActions.searchTerm(e.target.value);
+  }
+
+  async onSearchReset () {
     const {
       patientsActions
     } = this.props;
 
     await patientsActions.list();
+    patientsActions.searchTerm('');
   }
 
   render () {
@@ -61,14 +86,17 @@ class Patients extends React.Component {
     const {
       items,
       error,
-      loading
+      loading,
+      searchTerm
     } = patients;
 
     return (
       <div>
         <PatientsSearch
-          onSearch={this.search}
-          onReset={this.reset}
+          term={searchTerm}
+          onSearch={this.onSearchSubmit}
+          onChange={this.onSearchChange}
+          onReset={this.onSearchReset}
         />
 
         <div

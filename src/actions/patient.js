@@ -80,7 +80,7 @@ export const create = (data)  => async (dispatch) => {
 export const update = (data)  => async (dispatch) => {
   dispatch(submitting());
 
-  data.nameLowerCase = data.name.toLowerCase();
+  data.fullNameLowerCase = `${data.firstName.toLowerCase()} ${data.lastName.toLowerCase()}`;
 
   let response;
 

@@ -36,90 +36,60 @@ const styles = theme => ({
   }
 });
 
-class PatientsSearch extends React.Component {
-  constructor (props) {
-    super(props);
+const PatientsSearch = (props) => {
+  const {
+    classes,
+    term,
+    onSearch,
+    onChange,
+    onReset
+  } = props;
 
-    this.onChange = this.onChange.bind(this);
-    this.onReset = this.onReset.bind(this);
+  return (
+    <Paper
+      className={classes.paper}
+      elevation={0}
+    >
+      <TextField
+        id="search"
+        type="search"
+        className={classes.search}
+        placeholder="Search by patient name or number..."
+        fullWidth
+        margin="normal"
+        variant="outlined"
+        InputLabelProps={{
+          shrink: true
+        }}
+        InputProps={{
+          inputProps: {
+            'aria-label': "Search by patient name or number"
+          }
+        }}
+        onKeyPress={onSearch}
+        value={term}
+        onChange={onChange}
+      />
 
-    this.state = {
-      term: ''
-    };
-  }
-
-  onChange (el) {
-    this.setState({
-      term: el.target.value
-    });
-  }
-
-  onReset () {
-    const {
-      onReset
-    } = this.props;
-
-    this.setState({
-      term: ''
-    });
-
-    onReset();
-  }
-
-  render () {
-    const {
-      classes,
-      onSearch
-    } = this.props;
-
-    const {
-      term
-    } = this.state;
-
-    return (
-      <Paper
-        className={classes.paper}
-        elevation={0}
+      <InputAdornment
+        className={classes.inputButton}
       >
-        <TextField
-          id="search"
-          type="search"
-          className={classes.search}
-          placeholder="Search by patient name or number..."
-          fullWidth
-          margin="normal"
-          variant="outlined"
-          InputLabelProps={{
-            shrink: true
-          }}
-          InputProps={{
-            inputProps: {
-              'aria-label': "Search by patient name or number"
-            }
-          }}
-          onKeyPress={onSearch}
-          value={term}
-          onChange={this.onChange}
-        />
-
-        <InputAdornment
-          className={classes.inputButton}
+        <IconButton
+          onClick={onReset}
+          aria-label="Reset search"
         >
-          <IconButton
-            onClick={this.onReset}
-            aria-label="Reset search"
-          >
-            <Close />
-          </IconButton>
-        </InputAdornment>
-      </Paper>
-    );
-  }
+          <Close />
+        </IconButton>
+      </InputAdornment>
+    </Paper>
+  );
 };
 
 PatientsSearch.propTypes = {
   classes: PropTypes.object.isRequired,
+  term: PropTypes.string.isRequired,
   onSearch: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
   onReset: PropTypes.func.isRequired
 };
 
