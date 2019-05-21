@@ -24,6 +24,9 @@ const styles = theme => ({
     borderRadius: 4,
     maxWidth: 99999
   },
+  upload: {
+    display: 'none'
+  },
   avatar: {
     margin: theme.spacing.unit,
     backgroundColor: theme.palette.primary.main,
@@ -147,8 +150,15 @@ class PatientForm extends React.Component {
       <Paper
         className={classes.paper}
       >
+        <input
+          type="file"
+          ref={ref => this.upload = ref}
+          className={classes.upload}
+        />
+
         <Avatar
           className={classes.avatar}
+          onClick={() => this.upload.click()}
         >
           <AddAPhotoIcon
             className={classes.icon}
