@@ -39,7 +39,7 @@ const SearchAppBar = props => {
               to="/patients"
             >
               <img
-                src="/img/face-small.png"
+                src="/img/face.png"
                 className={classes.logo}
                 alt="Facing the world"
               />

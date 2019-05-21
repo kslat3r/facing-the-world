@@ -121,7 +121,7 @@ class CustomSignIn extends SignIn {
           >
             <img
               className={classes.logo}
-              src="/img/logo.jpg"
+              src="/img/logo.png"
               alt="Facing the world"
             />
           </Paper>
