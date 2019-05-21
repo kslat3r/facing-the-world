@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import IconButton from '@material-ui/core/IconButton';
+import Close from '@material-ui/icons/Close';
 
 const styles = theme => ({
   paper: {
@@ -22,12 +25,19 @@ const styles = theme => ({
   search: {
     marginTop: theme.spacing.unit
   },
+  inputButton: {
+    top: -35,
+    right: 5,
+    float: 'right',
+    position: 'relative'
+  }
 });
 
 const PatientsSearch = (props) => {
   const {
     classes,
-    onSearch
+    onSearch,
+    onReset
   } = props;
 
   return (
@@ -37,6 +47,7 @@ const PatientsSearch = (props) => {
     >
       <TextField
         id="search"
+        type="search"
         className={classes.search}
         placeholder="Search by patient name or number..."
         fullWidth
@@ -45,15 +56,26 @@ const PatientsSearch = (props) => {
         InputLabelProps={{
           shrink: true
         }}
-        onBlur={onSearch}
+        onKeyPress={onSearch}
       />
+
+      <InputAdornment
+        className={classes.inputButton}
+      >
+        <IconButton
+          onClick={onReset}
+        >
+          <Close />
+        </IconButton>
+      </InputAdornment>
     </Paper>
   );
 };
 
 PatientsSearch.propTypes = {
   classes: PropTypes.object.isRequired,
-  onSearch: PropTypes.func.isRequired
+  onSearch: PropTypes.func.isRequired,
+  onReset: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(PatientsSearch);

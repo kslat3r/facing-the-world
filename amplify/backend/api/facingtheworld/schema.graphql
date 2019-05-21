@@ -1,8 +1,9 @@
 type Patient @model {
   id: ID!
   number: String!
-  name: String!
-  nameLowerCase: String!
+  firstName: String!
+  lastName: String!
+  fullNameLowerCase: String!
   dateOfBirth: String!
   history: String!
   managementPlan: String!

@@ -14,6 +14,12 @@ const PatientListItem = (props) => {
     item
   } = props;
 
+  const Name = () => (
+    <div>
+      {item.firstName} <b>{item.lastName}</b>
+    </div>
+  );
+
   return (
     <ListItem
       alignItems="flex-start"
@@ -24,12 +30,12 @@ const PatientListItem = (props) => {
     >
       <ListItemAvatar>
         <Avatar
-          alt={`${item.name}`}
+          alt={`${item.firstName} ${item.lastName}`}
           src={item.photoUri ? item.photoUri : '/img/unknown.png'}
         />
       </ListItemAvatar>
       <ListItemText
-        primary={`${item.name}`}
+        primary={<Name />}
         secondary={`${item.dateOfBirth.split('-').reverse().join('/')}`}
       />
     </ListItem>

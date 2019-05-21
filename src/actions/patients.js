@@ -28,12 +28,14 @@ const success = response => {
 export const list = (contains = null)  => async (dispatch) => {
   dispatch(loading());
 
-  const args = {};
+  const args = {
+    limit: 9999999
+  };
 
   if (contains) {
     args.filter = {
       or: [{
-        nameLowerCase: {
+        fullNameLowerCase: {
           contains: contains.toLowerCase()
         },
       },

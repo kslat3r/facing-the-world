@@ -25,18 +25,31 @@ class Patients extends React.Component {
     super(props);
 
     this.search = this.search.bind(this);
+    this.reset = this.reset.bind(this);
   }
 
   async componentWillMount () {
-    const { patientsActions } = this.props;
+    const {
+      patientsActions
+    } = this.props;
 
     await patientsActions.list();
   }
 
   async search (e) {
-    const { patientsActions } = this.props;
+    if (e.key === 'Enter') {
+      const { patientsActions } = this.props;
 
-    await patientsActions.list(e.target.value);
+      await patientsActions.list(e.target.value);
+    }
+  }
+
+  async reset () {
+    const {
+      patientsActions
+    } = this.props;
+
+    await patientsActions.list();
   }
 
   render () {
@@ -55,6 +68,7 @@ class Patients extends React.Component {
       <div>
         <PatientsSearch
           onSearch={this.search}
+          onReset={this.reset}
         />
 
         <div

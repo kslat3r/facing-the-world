@@ -5,8 +5,9 @@ export const createPatient = `mutation CreatePatient($input: CreatePatientInput!
   createPatient(input: $input) {
     id
     number
-    name
-    nameLowerCase
+    firstName
+    lastName
+    fullNameLowerCase
     dateOfBirth
     history
     managementPlan
@@ -18,8 +19,9 @@ export const updatePatient = `mutation UpdatePatient($input: UpdatePatientInput!
   updatePatient(input: $input) {
     id
     number
-    name
-    nameLowerCase
+    firstName
+    lastName
+    fullNameLowerCase
     dateOfBirth
     history
     managementPlan
@@ -31,8 +33,9 @@ export const deletePatient = `mutation DeletePatient($input: DeletePatientInput!
   deletePatient(input: $input) {
     id
     number
-    name
-    nameLowerCase
+    firstName
+    lastName
+    fullNameLowerCase
     dateOfBirth
     history
     managementPlan

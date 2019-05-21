@@ -2,7 +2,6 @@ import * as PatientsActions from '../actions/patients';
 
 const initialState = {
   items: [],
-  nextToken: null,
   loading: false,
   error: null,
 };
@@ -17,9 +16,25 @@ export default (state = initialState, action) => {
       };
 
     case PatientsActions.PATIENTS_SUCCESS:
+      const items = action.response.data.listPatients.items;
+
+      items.sort((a, b) => {
+        const aLastName = a.lastName.toLowerCase();
+        const bLastName = b.lastName.toLowerCase();
+
+        if (aLastName < bLastName) {
+          return -1;
+        }
+
+        if (aLastName > bLastName) {
+          return 1;
+        }
+
+        return 0;
+      });
+
       return {
-        items: action.response.data.listPatients.items,
-        nextToken: action.response.data.listPatients.nextToken,
+        items,
         loading: false,
         error: null
       };

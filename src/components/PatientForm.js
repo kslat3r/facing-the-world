@@ -174,10 +174,10 @@ class PatientForm extends React.Component {
         />
 
         <TextField
-          id="name"
-          key="name"
-          name="name"
-          label="Name"
+          id="firstName"
+          key="firstName"
+          name="firstName"
+          label="First name"
           className={classes.textField}
           margin="normal"
           InputLabelProps={{
@@ -187,8 +187,26 @@ class PatientForm extends React.Component {
             className: classes.input
           }}
           fullWidth
-          value={item.name}
-          onChange={(e) => this.onChange('name', e.target.value)}
+          value={item.firstName}
+          onChange={(e) => this.onChange('firstName', e.target.value)}
+        />
+
+        <TextField
+          id="lastName"
+          key="lastName"
+          name="lastName"
+          label="Last name"
+          className={classes.textField}
+          margin="normal"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          InputProps={{
+            className: classes.input
+          }}
+          fullWidth
+          value={item.lastName}
+          onChange={(e) => this.onChange('lastName', e.target.value)}
         />
 
         <TextField
