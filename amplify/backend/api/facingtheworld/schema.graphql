@@ -7,5 +7,5 @@ type Patient @model {
   dateOfBirth: String!
   history: String!
   managementPlan: String!
-  photoUri: String
+  photoKey: String
 }

@@ -11,7 +11,7 @@ export const onCreatePatient = `subscription OnCreatePatient {
     dateOfBirth
     history
     managementPlan
-    photoUri
+    photoKey
   }
 }
 `;
@@ -25,7 +25,7 @@ export const onUpdatePatient = `subscription OnUpdatePatient {
     dateOfBirth
     history
     managementPlan
-    photoUri
+    photoKey
   }
 }
 `;
@@ -39,7 +39,7 @@ export const onDeletePatient = `subscription OnDeletePatient {
     dateOfBirth
     history
     managementPlan
-    photoUri
+    photoKey
   }
 }
 `;

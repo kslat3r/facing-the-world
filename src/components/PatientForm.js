@@ -5,6 +5,7 @@ import Paper from '@material-ui/core/Paper';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import ErrorIcon from '@material-ui/icons/Error';
 import Avatar from '@material-ui/core/Avatar';
+import { Storage } from 'aws-amplify';
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -20,6 +21,8 @@ const styles = theme => ({
   },
   error: {
     marginBottom: theme.spacing.unit * 2,
+    marginLeft: theme.spacing.unit * 2,
+    marginRight: theme.spacing.unit * 2,
     backgroundColor: theme.palette.error.dark,
     borderRadius: 4,
     maxWidth: 99999
@@ -88,7 +91,16 @@ class PatientForm extends React.Component {
     this.onRemove = this.onRemove.bind(this);
 
     this.state = {
-      item: {},
+      item: {
+        number: '',
+        firstName: '',
+        lastName: '',
+        dateOfBirth: '',
+        history: '',
+        managementPlan: ''
+      },
+      error: null,
+      image: null
     };
   }
 
@@ -100,8 +112,50 @@ class PatientForm extends React.Component {
     });
   }
 
-  componentWillMount () {
-    this.setState({ item: this.props.item })
+  async componentWillMount () {
+    const {
+      item
+    } = this.props;
+
+    let image;
+
+    if (item.photoKey) {
+      try {
+        image = await Storage.get(item.photoKey);
+      } catch (e) {}
+    }
+
+    this.setState({
+      item,
+      image
+    });
+  }
+
+  async UNSAFE_componentWillReceiveProps (nextProps) {
+    const {
+      item: nextPropsItem
+    } = nextProps;
+
+    const {
+      item: stateItem
+    } = this.state;
+
+    let image;
+
+    if (nextPropsItem.photoKey) {
+      try {
+        image = await Storage.get(nextPropsItem.photoKey);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+
+    this.setState({
+      image,
+      item: Object.assign({}, stateItem, {
+        photoKey: nextPropsItem.photoKey
+      })
+    });
   }
 
   onSubmit () {
@@ -109,7 +163,34 @@ class PatientForm extends React.Component {
       onSubmit
     } = this.props;
 
-    onSubmit(this.state.item);
+    this.setState({ error: null });
+
+    const {
+      item
+    } = this.state;
+
+    let error;
+
+    if (!item.number) {
+      error = 'Patient number is a required field';
+    } else if (!item.firstName) {
+      error = 'First number is a required field';
+    } else if (!item.lastName) {
+      error = 'Last number is a required field';
+    } else if (!item.dateOfBirth) {
+      error = 'Date of birth is a required field';
+    } else if (!item.history) {
+      error = 'History is a required field';
+    } else if (!item.managementPlan) {
+      error = 'Management plan is a required field';
+    }
+
+    if (error) {
+      window.scrollTo(0, 0);
+      this.setState({ error })
+    } else {
+      onSubmit(this.state.item);
+    }
   }
 
   onRemove () {
@@ -126,17 +207,19 @@ class PatientForm extends React.Component {
       uploading,
       submitting,
       removing,
-      error,
+      error: propsError,
       onFileUpload
     } = this.props;
 
     const {
-      item
+      item,
+      error: stateError,
+      image
     } = this.state;
 
     return (
       <div>
-        {error ? (
+        {propsError || stateError ? (
           <SnackbarContent
             className={classes.error}
             message={
@@ -147,7 +230,7 @@ class PatientForm extends React.Component {
                 <ErrorIcon
                   className={classes.errorIcon}
                 />
-                {error}
+                {propsError || stateError}
               </span>
             }
           />
@@ -166,7 +249,7 @@ class PatientForm extends React.Component {
         <Avatar
           className={classes.avatar}
           onClick={() => this.upload.click()}
-          src={item.photoUri && !uploading ? item.photoUri : undefined}
+          src={image && !uploading ? image : undefined}
         >
           {!uploading ? (
             <AddAPhotoIcon
@@ -181,6 +264,7 @@ class PatientForm extends React.Component {
         </Avatar>
 
         <TextField
+          required
           id="number"
           key="number"
           name="number"
@@ -199,6 +283,7 @@ class PatientForm extends React.Component {
         />
 
         <TextField
+          required
           id="firstName"
           key="firstName"
           name="firstName"
@@ -217,6 +302,7 @@ class PatientForm extends React.Component {
         />
 
         <TextField
+          required
           id="lastName"
           key="lastName"
           name="lastName"
@@ -235,6 +321,7 @@ class PatientForm extends React.Component {
         />
 
         <TextField
+          required
           id="dateOfBirth"
           key="dateOfBirth"
           name="dateOfBirth"
@@ -254,6 +341,7 @@ class PatientForm extends React.Component {
         />
 
         <TextField
+          required
           id="history"
           key="history"
           name="history"
@@ -274,6 +362,7 @@ class PatientForm extends React.Component {
         />
 
         <TextField
+          required
           id="managementPlan"
           key="managementPlan"
           name="managementPlan"

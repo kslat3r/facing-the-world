@@ -11,7 +11,7 @@ export const createPatient = `mutation CreatePatient($input: CreatePatientInput!
     dateOfBirth
     history
     managementPlan
-    photoUri
+    photoKey
   }
 }
 `;
@@ -25,7 +25,7 @@ export const updatePatient = `mutation UpdatePatient($input: UpdatePatientInput!
     dateOfBirth
     history
     managementPlan
-    photoUri
+    photoKey
   }
 }
 `;
@@ -39,7 +39,7 @@ export const deletePatient = `mutation DeletePatient($input: DeletePatientInput!
     dateOfBirth
     history
     managementPlan
-    photoUri
+    photoKey
   }
 }
 `;

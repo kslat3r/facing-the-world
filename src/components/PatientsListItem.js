@@ -5,6 +5,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
+import { Storage } from 'aws-amplify';
 import { Link } from 'react-router-dom'
 
 const styles = theme => ({
@@ -14,39 +15,71 @@ const styles = theme => ({
   }
 });
 
-const PatientListItem = (props) => {
-  const {
-    classes,
-    item
-  } = props;
+class PatientListItem extends React.Component {
+  constructor (props) {
+    super(props);
 
-  const Name = () => (
-    <div>
-      {item.firstName} <b>{item.lastName}</b>
-    </div>
-  );
+    this.state = {
+      image: null
+    };
+  }
 
-  return (
-    <ListItem
-      alignItems="center"
-      divider
-      button
-      component={Link}
-      to={`/patients/${item.id}`}
-    >
-      <ListItemAvatar>
-        <Avatar
-          className={classes.avatar}
-          alt={`${item.firstName} ${item.lastName}`}
-          src={item.photoUri ? item.photoUri : '/img/unknown.png'}
+  async componentWillMount () {
+    const {
+      item
+    } = this.props;
+
+    let image;
+
+    if (item.photoKey) {
+      try {
+        image = await Storage.get(item.photoKey);
+      } catch (e) {}
+    }
+
+    this.setState({
+      image
+    });
+  }
+
+  render () {
+    const {
+      classes,
+      item
+    } = this.props;
+
+    const {
+      image
+    } = this.state;
+
+    const Name = () => (
+      <div>
+        {item.firstName} <b>{item.lastName}</b>
+      </div>
+    );
+
+    return (
+      <ListItem
+        alignItems="center"
+        divider
+        button
+        component={Link}
+        to={`/patients/${item.id}`}
+      >
+        <ListItemAvatar>
+          <Avatar
+            className={classes.avatar}
+            alt={`${item.firstName} ${item.lastName}`}
+            src={image ? image : '/img/unknown.png'}
+          />
+        </ListItemAvatar>
+        <ListItemText
+          primary={<Name />}
+          secondary={`${item.dateOfBirth.split('-').reverse().join('/')}`}
         />
-      </ListItemAvatar>
-      <ListItemText
-        primary={<Name />}
-        secondary={`${item.dateOfBirth.split('-').reverse().join('/')}`}
-      />
-    </ListItem>
-  );
+      </ListItem>
+    );
+  }
 };
 
 PatientListItem.propTypes = {

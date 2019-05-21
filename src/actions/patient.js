@@ -1,5 +1,5 @@
 import { Storage, API, graphqlOperation } from 'aws-amplify';
-import * as uniqid from 'uniqid';
+import * as uuid from 'uuid';
 import * as queries from '../graphql/queries';
 import * as mutations from '../graphql/mutations';
 
@@ -24,10 +24,10 @@ const uploading = () => {
   };
 };
 
-const uploaded = (photoUri) => {
+const uploaded = (photoKey) => {
   return {
     type: PATIENT_UPLOADED,
-    photoUri
+    photoKey
   };
 };
 
@@ -80,7 +80,7 @@ export const get = (id)  => async (dispatch) => {
 export const upload = (file)  => async (dispatch) => {
   dispatch(uploading());
 
-  const name = `${uniqid()}${file.name.split('.')[1]}`;
+  const name = `${uuid.v4()}${file.name.split('.')[1]}`;
   let result;
 
   try {
@@ -91,13 +91,7 @@ export const upload = (file)  => async (dispatch) => {
     return dispatch(error(e));
   }
 
-  try {
-    result = await Storage.get(name);
-  } catch (e) {
-    return dispatch(error(e));
-  }
-
-  dispatch(uploaded(result));
+  return dispatch(uploaded(result.key));
 };
 
 export const create = (data)  => async (dispatch) => {

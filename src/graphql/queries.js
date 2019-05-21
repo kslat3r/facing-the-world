@@ -11,7 +11,7 @@ export const getPatient = `query GetPatient($id: ID!) {
     dateOfBirth
     history
     managementPlan
-    photoUri
+    photoKey
   }
 }
 `;
@@ -23,10 +23,14 @@ export const listPatients = `query ListPatients(
   listPatients(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
+      number
       firstName
       lastName
+      fullNameLowerCase
       dateOfBirth
-      photoUri
+      history
+      managementPlan
+      photoKey
     }
     nextToken
   }

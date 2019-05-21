@@ -32,7 +32,7 @@ export default (state = initialState, action) => {
       };
 
     case PatientActions.PATIENT_UPLOADED:
-      state.item.photoUri = action.photoUri;
+      state.item.photoKey = action.photoKey;
 
       return {
         item: state.item,
