@@ -7,10 +7,16 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import { Link } from 'react-router-dom'
 
-const styles = theme => ({});
+const styles = theme => ({
+  avatar: {
+    height: 60,
+    width: 60
+  }
+});
 
 const PatientListItem = (props) => {
   const {
+    classes,
     item
   } = props;
 
@@ -22,7 +28,7 @@ const PatientListItem = (props) => {
 
   return (
     <ListItem
-      alignItems="flex-start"
+      alignItems="center"
       divider
       button
       component={Link}
@@ -30,6 +36,7 @@ const PatientListItem = (props) => {
     >
       <ListItemAvatar>
         <Avatar
+          className={classes.avatar}
           alt={`${item.firstName} ${item.lastName}`}
           src={item.photoUri ? item.photoUri : '/img/unknown.png'}
         />

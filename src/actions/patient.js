@@ -1,8 +1,11 @@
-import { API, graphqlOperation } from 'aws-amplify';
+import { Storage, API, graphqlOperation } from 'aws-amplify';
+import * as uniqid from 'uniqid';
 import * as queries from '../graphql/queries';
 import * as mutations from '../graphql/mutations';
 
 export const PATIENT_LOADING = 'PATIENT_LOADNG';
+export const PATIENT_UPLOADING = 'PATIENT_UPLOADING';
+export const PATIENT_UPLOADED = 'PATIENT_UPLOADED';
 export const PATIENT_SUBMITTING = 'PATIENT_SUBMITTING';
 export const PATIENT_REMOVING = 'PATIENT_REMOVING';
 export const PATIENT_ERROR = 'PATIENT_ERROR';
@@ -12,6 +15,19 @@ export const PATIENT_INIT = 'PATIENT_INIT';
 const loading = () => {
   return {
     type: PATIENT_LOADING
+  };
+};
+
+const uploading = () => {
+  return {
+    type: PATIENT_UPLOADING
+  };
+};
+
+const uploaded = (photoUri) => {
+  return {
+    type: PATIENT_UPLOADED,
+    photoUri
   };
 };
 
@@ -59,6 +75,29 @@ export const get = (id)  => async (dispatch) => {
   }
 
   return dispatch(success(response));
+};
+
+export const upload = (file)  => async (dispatch) => {
+  dispatch(uploading());
+
+  const name = `${uniqid()}${file.name.split('.')[1]}`;
+  let result;
+
+  try {
+    result = await Storage.put(name, file, {
+      contentType: file.type
+    });
+  } catch (e) {
+    return dispatch(error(e));
+  }
+
+  try {
+    result = await Storage.get(name);
+  } catch (e) {
+    return dispatch(error(e));
+  }
+
+  dispatch(uploaded(result));
 };
 
 export const create = (data)  => async (dispatch) => {

@@ -30,10 +30,14 @@ const styles = theme => ({
   avatar: {
     margin: theme.spacing.unit,
     backgroundColor: theme.palette.primary.main,
-    width: 150,
-    height: 150,
+    width: 200,
+    height: 200,
     marginLeft: 'auto',
-    marginRight: 'auto'
+    marginRight: 'auto',
+    [theme.breakpoints.up('sm')]: {
+      width: 250,
+      height: 250
+    },
   },
   icon: {
     fontSize: 50
@@ -119,9 +123,11 @@ class PatientForm extends React.Component {
   render() {
     const {
       classes,
+      uploading,
       submitting,
       removing,
-      error
+      error,
+      onFileUpload
     } = this.props;
 
     const {
@@ -154,15 +160,24 @@ class PatientForm extends React.Component {
           type="file"
           ref={ref => this.upload = ref}
           className={classes.upload}
+          onChange={onFileUpload}
         />
 
         <Avatar
           className={classes.avatar}
           onClick={() => this.upload.click()}
+          src={item.photoUri && !uploading ? item.photoUri : undefined}
         >
-          <AddAPhotoIcon
-            className={classes.icon}
-          />
+          {!uploading ? (
+            <AddAPhotoIcon
+              className={classes.icon}
+            />
+          ) : (
+            <CircularProgress
+              className={classes.progress}
+              size={50}
+            />
+          )}
         </Avatar>
 
         <TextField
@@ -283,7 +298,7 @@ class PatientForm extends React.Component {
           color="primary"
           className={classes.button}
           fullWidth
-          disabled={submitting}
+          disabled={submitting || uploading}
           onClick={this.onSubmit}
         >
           {submitting ? (
@@ -299,7 +314,7 @@ class PatientForm extends React.Component {
             variant="contained"
             color="primary"
             className={classes.removeButton}
-            disabled={removing}
+            disabled={removing || uploading}
             onClick={this.onRemove}
           >
             {removing ? (
@@ -319,9 +334,11 @@ class PatientForm extends React.Component {
 PatientForm.propTypes = {
   classes: PropTypes.object.isRequired,
   item: PropTypes.object.isRequired,
+  uploading: PropTypes.bool.isRequired,
   submitting: PropTypes.bool.isRequired,
   removing: PropTypes.bool.isRequired,
   error: PropTypes.object,
+  onFileUpload: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired
 };

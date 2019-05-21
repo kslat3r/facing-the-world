@@ -22,6 +22,7 @@ class Patient extends React.Component {
   constructor (props) {
     super(props);
 
+    this.upload = this.upload.bind(this);
     this.create = this.create.bind(this);
     this.update = this.update.bind(this);
     this.remove = this.remove.bind(this);
@@ -48,7 +49,19 @@ class Patient extends React.Component {
   }
 
   componentWillUnmount () {
-    this.props.patientActions.init();
+    const {
+      patientActions
+    } = this.props;
+
+    patientActions.init();
+  }
+
+  async upload (e) {
+    const {
+      patientActions
+    } = this.props;
+
+    patientActions.upload(e.target.files[0]);
   }
 
   async create (data) {
@@ -94,6 +107,7 @@ class Patient extends React.Component {
       item,
       error,
       loading,
+      uploading,
       submitting,
       removing
     } = patient;
@@ -117,9 +131,11 @@ class Patient extends React.Component {
         {!error && !loading && item ? (
           <PatientForm
             item={item}
+            uploading={uploading}
             submitting={submitting}
             removing={removing}
             error={error}
+            onFileUpload={this.upload}
             onSubmit={!item.id ? this.create : this.update}
             onRemove={this.remove}
           />

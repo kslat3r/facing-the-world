@@ -3,6 +3,7 @@ import * as PatientActions from '../actions/patient';
 const initialState = {
   item: null,
   loading: false,
+  uploading: false,
   submitting: false,
   removing: false,
   error: null
@@ -14,6 +15,29 @@ export default (state = initialState, action) => {
       return {
         item: null,
         loading: true,
+        uploading: false,
+        submitting: false,
+        removing: false,
+        error: null
+      };
+
+    case PatientActions.PATIENT_UPLOADING:
+      return {
+        item: state.item,
+        loading: false,
+        uploading: true,
+        submitting: false,
+        removing: false,
+        error: null
+      };
+
+    case PatientActions.PATIENT_UPLOADED:
+      state.item.photoUri = action.photoUri;
+
+      return {
+        item: state.item,
+        loading: false,
+        uploading: false,
         submitting: false,
         removing: false,
         error: null
@@ -23,6 +47,7 @@ export default (state = initialState, action) => {
       return {
         item: state.item,
         loading: false,
+        uploading: false,
         submitting: true,
         removing: false,
         error: null
@@ -32,6 +57,7 @@ export default (state = initialState, action) => {
       return {
         item: state.item,
         loading: false,
+        uploading: false,
         submitting: false,
         removing: true,
         error: null
@@ -51,6 +77,7 @@ export default (state = initialState, action) => {
       return {
         item,
         loading: false,
+        uploading: false,
         submitting: false,
         removing: false,
         error: null
@@ -60,6 +87,7 @@ export default (state = initialState, action) => {
       return {
         item: null,
         loading: false,
+        uploading: false,
         submitting: false,
         removing: false,
         error: action.error
@@ -69,6 +97,7 @@ export default (state = initialState, action) => {
       return {
         item: {},
         loading: false,
+        uploading: false,
         submitting: false,
         removing: false,
         error: null
