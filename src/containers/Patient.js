@@ -30,7 +30,8 @@ class Patient extends React.Component {
 
   async componentWillMount () {
     const {
-      match
+      match,
+      patientActions
     } = this.props;
 
     const {
@@ -42,9 +43,7 @@ class Patient extends React.Component {
     } = params;
 
     if (id) {
-      await this.props.patientActions.get(id);
-    } else {
-      await this.props.patientActions.init();
+      await patientActions.get(id);
     }
   }
 
@@ -53,7 +52,7 @@ class Patient extends React.Component {
       patientActions
     } = this.props;
 
-    patientActions.init();
+    patientActions.reset();
   }
 
   async upload (e) {
@@ -62,7 +61,7 @@ class Patient extends React.Component {
         patientActions
       } = this.props;
 
-      patientActions.upload(e.target.files[0]);
+      await patientActions.upload(e.target.files[0]);
     }
   }
 

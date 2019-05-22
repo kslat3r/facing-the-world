@@ -38,6 +38,14 @@ const removed = (item) => {
   };
 }
 
+const searchTerm = (searchTerm) => {
+  return {
+    type: PATIENTS_SEARCH_TERM,
+    searchTerm
+  };
+};
+
+
 export const initialise = () => async (dispatch) => {
   dispatch(initialised());
 
@@ -100,6 +108,7 @@ export const list = (contains = null) => async (dispatch) => {
       }]
     };
   } else {
+    console.log(true);
     dispatch(searchTerm(''));
   }
 
@@ -112,11 +121,4 @@ export const list = (contains = null) => async (dispatch) => {
   }
 
   return dispatch(success(response));
-};
-
-export const searchTerm = (searchTerm) => (dispatch) => {
-  return dispatch({
-    type: PATIENTS_SEARCH_TERM,
-    searchTerm
-  });
 };

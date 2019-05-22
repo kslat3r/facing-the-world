@@ -1,15 +1,26 @@
 import * as PatientActions from '../actions/patient';
 
-const initialState = {
-  item: null,
-  loading: false,
-  uploading: false,
-  submitting: false,
-  removing: false,
-  error: null
+const createInitialState = () => {
+  return {
+    item: {
+      id: '',
+      number: '',
+      firstName: '',
+      lastName: '',
+      dateOfBirth: '',
+      history: '',
+      managementPlan: '',
+      photoKey: ''
+    },
+    loading: false,
+    uploading: false,
+    submitting: false,
+    removing: false,
+    error: null
+  };
 };
 
-export default (state = initialState, action) => {
+export default (state = createInitialState(), action) => {
   switch (action.type) {
     case PatientActions.PATIENT_LOADING:
       return {
@@ -93,23 +104,8 @@ export default (state = initialState, action) => {
         error: action.error
       };
 
-    case PatientActions.PATIENT_INIT:
-      return {
-        item: {
-          number: '',
-          firstName: '',
-          lastName: '',
-          dateOfBirth: '',
-          history: '',
-          managementPlan: '',
-          photoKey: ''
-        },
-        loading: false,
-        uploading: false,
-        submitting: false,
-        removing: false,
-        error: null
-      };
+    case PatientActions.PATIENT_RESET:
+      return createInitialState();
 
     default:
       return state;

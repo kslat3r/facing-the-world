@@ -83,15 +83,7 @@ class PatientForm extends React.Component {
     };
   }
 
-  onChange (field, value) {
-    const state = this.state;
-
-    state.item[field] = value;
-
-    this.setState({ item: state.item });
-  }
-
-  async componentWillMount () {
+  componentWillMount () {
     const {
       item
     } = this.props;
@@ -117,6 +109,14 @@ class PatientForm extends React.Component {
 
       this.setState({ item: state.item });
     }
+  }
+
+  onChange (field, value) {
+    const state = this.state;
+
+    state.item[field] = value;
+
+    this.setState({ item: state.item });
   }
 
   onSubmit () {

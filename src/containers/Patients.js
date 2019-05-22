@@ -25,7 +25,6 @@ class Patients extends React.Component {
     super(props);
 
     this.onSearchSubmit = this.onSearchSubmit.bind(this);
-    this.onSearchChange = this.onSearchChange.bind(this);
     this.onSearchReset = this.onSearchReset.bind(this);
   }
 
@@ -45,29 +44,12 @@ class Patients extends React.Component {
     }
   }
 
-  async onSearchSubmit (e) {
-    if (e.key === 'Enter') {
-      e.target.blur();
-
-      const {
-        patientsActions,
-        patients
-      } = this.props;
-
-      const {
-        searchTerm
-      } = patients;
-
-      await patientsActions.list(searchTerm);
-    }
-  }
-
-  async onSearchChange (e) {
+  async onSearchSubmit (searchTerm) {
     const {
       patientsActions
     } = this.props;
 
-    patientsActions.searchTerm(e.target.value);
+    await patientsActions.list(searchTerm);
   }
 
   async onSearchReset () {
@@ -76,7 +58,6 @@ class Patients extends React.Component {
     } = this.props;
 
     await patientsActions.list();
-    patientsActions.searchTerm('');
   }
 
   render () {
@@ -97,7 +78,6 @@ class Patients extends React.Component {
         <PatientsSearch
           term={searchTerm}
           onSearch={this.onSearchSubmit}
-          onChange={this.onSearchChange}
           onReset={this.onSearchReset}
         />
 

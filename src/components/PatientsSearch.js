@@ -36,60 +36,117 @@ const styles = theme => ({
   }
 });
 
-const PatientsSearch = (props) => {
-  const {
-    classes,
-    term,
-    onSearch,
-    onChange,
-    onReset
-  } = props;
+class PatientsSearch extends React.Component {
+  constructor (props) {
+    super(props);
 
-  return (
-    <Paper
-      className={classes.paper}
-      elevation={0}
-    >
-      <TextField
-        id="search"
-        type="search"
-        className={classes.search}
-        placeholder="Search by patient name or number..."
-        fullWidth
-        margin="normal"
-        variant="outlined"
-        InputLabelProps={{
-          shrink: true
-        }}
-        InputProps={{
-          inputProps: {
-            'aria-label': "Search by patient name or number"
-          }
-        }}
-        onKeyPress={onSearch}
-        value={term}
-        onChange={onChange}
-      />
+    this.onChange = this.onChange.bind(this);
+    this.onSearch = this.onSearch.bind(this);
 
-      <InputAdornment
-        className={classes.inputButton}
+    this.state = {
+      term: ''
+    };
+  }
+
+  componentWillMount () {
+    const {
+      term
+    } = this.props;
+
+    this.setState({
+      term
+    });
+  }
+
+  componentDidUpdate (prevProps) {
+    const {
+      term: prevTerm
+    } = prevProps;
+
+    const {
+      term
+    } = this.props;
+
+    if (prevTerm !== term) {
+      this.setState({
+        term
+      });
+    }
+  }
+
+  onChange (e) {
+    this.setState({
+      term: e.target.value
+    });
+  }
+
+  onSearch (e) {
+    if (e.key === 'Enter') {
+      e.target.blur();
+
+      const {
+        onSearch
+      } = this.props;
+
+      onSearch(this.state.term);
+    }
+  }
+
+  render () {
+    const {
+      classes,
+      onReset
+    } = this.props;
+
+    const {
+      term
+    } = this.state;
+
+    return (
+      <Paper
+        className={classes.paper}
+        elevation={0}
       >
-        <IconButton
-          onClick={onReset}
-          aria-label="Reset search"
+        <TextField
+          id="search"
+          type="search"
+          className={classes.search}
+          placeholder="Search by patient name or number..."
+          fullWidth
+          margin="normal"
+          variant="outlined"
+          InputLabelProps={{
+            shrink: true
+          }}
+          InputProps={{
+            inputProps: {
+              'aria-label': "Search by patient name or number"
+            }
+          }}
+          onKeyPress={this.onSearch}
+          value={term}
+          onChange={this.onChange}
+        />
+
+        <InputAdornment
+          className={classes.inputButton}
         >
-          <Close />
-        </IconButton>
-      </InputAdornment>
-    </Paper>
-  );
+          <IconButton
+            onClick={onReset}
+            aria-label="Reset search"
+          >
+            <Close />
+          </IconButton>
+        </InputAdornment>
+      </Paper>
+    );
+  }
 };
 
 PatientsSearch.propTypes = {
   classes: PropTypes.object.isRequired,
   term: PropTypes.string.isRequired,
   onSearch: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
   onReset: PropTypes.func.isRequired
 };
 
