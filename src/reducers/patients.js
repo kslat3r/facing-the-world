@@ -51,8 +51,10 @@ export default (state = initialState, action) => {
     case PatientsActions.PATIENTS_UPDATED: {
       const item = action.item.value.data.onUpdatePatient;
 
-      state.items = state.items.filter(patient => patient.id !== item.id);
-      state.items.unshift(item);
+      if (state.searchTerm === '') {
+        state.items = state.items.filter(patient => patient.id !== item.id);
+        state.items.unshift(item);
+      }
 
       return {
         initialised: true,
