@@ -108,7 +108,6 @@ export const list = (contains = null) => async (dispatch) => {
       }]
     };
   } else {
-    console.log(true);
     dispatch(searchTerm(''));
   }
 
