@@ -4,8 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import ErrorIcon from '@material-ui/icons/Error';
-import Avatar from '@material-ui/core/Avatar';
-import { Storage } from 'aws-amplify';
+import PatientAvatar from './PatientAvatar';
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -29,18 +28,6 @@ const styles = theme => ({
   },
   upload: {
     display: 'none'
-  },
-  avatar: {
-    margin: theme.spacing.unit,
-    backgroundColor: theme.palette.primary.main,
-    width: 200,
-    height: 200,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    [theme.breakpoints.up('sm')]: {
-      width: 250,
-      height: 250
-    },
   },
   icon: {
     fontSize: 50
@@ -99,8 +86,7 @@ class PatientForm extends React.Component {
         history: '',
         managementPlan: ''
       },
-      error: null,
-      image: null
+      error: null
     };
   }
 
@@ -117,44 +103,8 @@ class PatientForm extends React.Component {
       item
     } = this.props;
 
-    let image;
-
-    if (item.photoKey) {
-      try {
-        image = await Storage.get(item.photoKey);
-      } catch (e) {}
-    }
-
     this.setState({
-      item,
-      image
-    });
-  }
-
-  async UNSAFE_componentWillReceiveProps (nextProps) {
-    const {
-      item: nextPropsItem
-    } = nextProps;
-
-    const {
-      item: stateItem
-    } = this.state;
-
-    let image;
-
-    if (nextPropsItem.photoKey) {
-      try {
-        image = await Storage.get(nextPropsItem.photoKey);
-      } catch (e) {
-        console.log(e);
-      }
-    }
-
-    this.setState({
-      image,
-      item: Object.assign({}, stateItem, {
-        photoKey: nextPropsItem.photoKey
-      })
+      item
     });
   }
 
@@ -213,8 +163,7 @@ class PatientForm extends React.Component {
 
     const {
       item,
-      error: stateError,
-      image
+      error: stateError
     } = this.state;
 
     return (
@@ -244,12 +193,16 @@ class PatientForm extends React.Component {
           ref={ref => this.upload = ref}
           className={classes.upload}
           onChange={onFileUpload}
+          accept="image/*"
+          capture="environment"
         />
 
-        <Avatar
-          className={classes.avatar}
+        <PatientAvatar
+          alt={`${item.firstName} ${item.lastName}`}
+          variant="large"
           onClick={() => this.upload.click()}
-          src={image && !uploading ? image : undefined}
+          photoKey={item.photoKey || undefined}
+          forceNoSrc={uploading}
         >
           {!uploading ? (
             <AddAPhotoIcon
@@ -261,7 +214,7 @@ class PatientForm extends React.Component {
               size={50}
             />
           )}
-        </Avatar>
+        </PatientAvatar>
 
         <TextField
           required

@@ -4,16 +4,10 @@ import { withStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
-import { Storage } from 'aws-amplify';
+import PatientAvatar from './PatientAvatar';
 import { Link } from 'react-router-dom'
 
-const styles = theme => ({
-  avatar: {
-    height: 60,
-    width: 60
-  }
-});
+const styles = theme => ({});
 
 class PatientListItem extends React.Component {
   constructor (props) {
@@ -24,33 +18,10 @@ class PatientListItem extends React.Component {
     };
   }
 
-  async componentWillMount () {
-    const {
-      item
-    } = this.props;
-
-    let image;
-
-    if (item.photoKey) {
-      try {
-        image = await Storage.get(item.photoKey);
-      } catch (e) {}
-    }
-
-    this.setState({
-      image
-    });
-  }
-
   render () {
     const {
-      classes,
       item
     } = this.props;
-
-    const {
-      image
-    } = this.state;
 
     const Name = () => (
       <div>
@@ -67,10 +38,11 @@ class PatientListItem extends React.Component {
         to={`/patients/${item.id}`}
       >
         <ListItemAvatar>
-          <Avatar
-            className={classes.avatar}
+          <PatientAvatar
+            variant="small"
             alt={`${item.firstName} ${item.lastName}`}
-            src={image ? image : '/img/unknown.png'}
+            photoKey={item.photoKey || undefined}
+            src={!item.photoKey ? '/img/unknown.png' : undefined}
           />
         </ListItemAvatar>
         <ListItemText

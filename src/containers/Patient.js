@@ -57,11 +57,13 @@ class Patient extends React.Component {
   }
 
   async upload (e) {
-    const {
-      patientActions
-    } = this.props;
+    if (e.target.files.length) {
+      const {
+        patientActions
+      } = this.props;
 
-    patientActions.upload(e.target.files[0]);
+      patientActions.upload(e.target.files[0]);
+    }
   }
 
   async create (data) {
