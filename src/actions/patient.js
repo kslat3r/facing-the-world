@@ -81,15 +81,14 @@ export const upload = (file)  => async (dispatch) => {
   dispatch(uploading());
 
   const name = `${uuid.v4()}.${file.name.split('.')[1]}`;
-  let result;
 
   try {
-    result = await Storage.vault.put(name, file);
+    await Storage.vault.put(name, file);
   } catch (e) {
     return dispatch(error(e));
   }
 
-  return dispatch(uploaded(result.key));
+  return dispatch(uploaded(name));
 };
 
 export const create = (data)  => async (dispatch) => {

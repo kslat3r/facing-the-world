@@ -78,24 +78,17 @@ class PatientForm extends React.Component {
     this.onRemove = this.onRemove.bind(this);
 
     this.state = {
-      item: {
-        number: '',
-        firstName: '',
-        lastName: '',
-        dateOfBirth: '',
-        history: '',
-        managementPlan: ''
-      },
+      item: {},
       error: null
     };
   }
 
   onChange (field, value) {
-    this.setState({
-      item: Object.assign({}, this.state.item, {
-        [field]: value
-      })
-    });
+    const state = this.state;
+
+    state.item[field] = value;
+
+    this.setState({ item: state.item });
   }
 
   async componentWillMount () {
@@ -106,6 +99,24 @@ class PatientForm extends React.Component {
     this.setState({
       item
     });
+  }
+
+  componentDidUpdate (prevProps) {
+    const {
+      photoKey: prevPhotoKey
+    } = prevProps;
+
+    const {
+      photoKey
+    } = this.props;
+
+    if (prevPhotoKey !== photoKey) {
+      const state = this.state;
+
+      state.item.photoKey = photoKey;
+
+      this.setState({ item: state.item });
+    }
   }
 
   onSubmit () {

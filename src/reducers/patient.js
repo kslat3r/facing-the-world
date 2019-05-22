@@ -95,7 +95,15 @@ export default (state = initialState, action) => {
 
     case PatientActions.PATIENT_INIT:
       return {
-        item: {},
+        item: {
+          number: '',
+          firstName: '',
+          lastName: '',
+          dateOfBirth: '',
+          history: '',
+          managementPlan: '',
+          photoKey: ''
+        },
         loading: false,
         uploading: false,
         submitting: false,
