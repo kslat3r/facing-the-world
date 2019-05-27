@@ -146,6 +146,7 @@ class CustomSignIn extends SignIn {
             className={classes.paperForm}
           >
             <TextField
+              type="text"
               id="username"
               key="username"
               name="username"
@@ -156,8 +157,12 @@ class CustomSignIn extends SignIn {
               InputLabelProps={{
                 shrink: true,
               }}
-              InputProps={{
-                className: classes.input
+              inputProps={{
+                className: classes.input,
+                autocomplete: 'off',
+                required: true,
+                autocapitalize: 'off',
+                autocorrect: 'off'
               }}
               fullWidth
             />
@@ -174,8 +179,12 @@ class CustomSignIn extends SignIn {
               InputLabelProps={{
                 shrink: true,
               }}
-              InputProps={{
-                className: classes.input
+              inputProps={{
+                className: classes.input,
+                autocomplete: 'off',
+                required: true,
+                autocapitalize: 'off',
+                autocorrect: 'off'
               }}
               fullWidth
             />
